@@ -1,41 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SPA Redirect</title>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
   <script>
-    // SPA Redirect Script for GitHub Pages
-    // This script takes the current URL path and
-    // converts it to a query string parameter for
-    // the index.html page, which then uses replaceState
-    // to fix the URL.
+    // Single Page Apps for GitHub Pages
+    // MIT License
+    // This script takes the current URL and converts the path and query
+    // string into just a query string, and then redirects the browser
+    // to the new URL with only a query string and hash fragment
     
-    const segmentCount = 1; // This should be 1 for repos like /TestZentek/ 
+    // Parse the URL
+    var pathSegmentsToKeep = 1; // Change to match your repo name structure
+    var l = window.location;
+    var redirectUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+    redirectUrl += '/TestZentek/';
     
-    const locationPath = window.location.pathname;
-    const l = window.location;
+    var path = l.pathname.split('/');
+    path.length > 0 ? path.splice(0, pathSegmentsToKeep + 1) : path = [];
     
-    // We don't want to redirect for any assets
-    if (!locationPath.includes('.')) {
-      sessionStorage.setItem('redirectPath', locationPath);
-      
-      // Redirect to the index.html page with the current path encoded into
-      // the location.search query string
-      let redirectUrl = locationPath.split('/').slice(0, segmentCount + 1).join('/');
-      
-      // Make sure we keep any query params or hash
-      redirectUrl = redirectUrl + '/?/' + 
-          locationPath.slice(redirectUrl.length + 1) +
-          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') + 
-          l.hash;
-          
-      window.location.replace(redirectUrl);
+    // If there's a path left after removing segments, add it to the redirectUrl
+    if (path.length > 0) {
+      redirectUrl += path.join('/');
     }
+    
+    // Add query string and hash
+    redirectUrl += l.search + l.hash;
+    
+    // Redirect to the new URL
+    window.location.replace(redirectUrl);
   </script>
 </head>
 <body>
-  <h1>Redirecting...</h1>
-  <p>If you are not redirected automatically, please <a href="/TestZentek/">click here</a>.</p>
+  <p>If you are not redirected automatically, follow this <a href="/TestZentek/">link</a>.</p>
 </body>
 </html>
