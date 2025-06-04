@@ -3,13 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0;url=/TestZentek/" />
-  <title>Redirecting...</title>
+  <title>SPA Redirect</title>
+  <script>
+    // SPA Redirect Script for GitHub Pages
+    // This script takes the current URL path and
+    // converts it to a query string parameter for
+    // the index.html page, which then uses replaceState
+    // to fix the URL.
+    
+    const segmentCount = 1; // This should be 1 for repos like /TestZentek/ 
+    
+    const locationPath = window.location.pathname;
+    const l = window.location;
+    
+    // We don't want to redirect for any assets
+    if (!locationPath.includes('.')) {
+      sessionStorage.setItem('redirectPath', locationPath);
+      
+      // Redirect to the index.html page with the current path encoded into
+      // the location.search query string
+      let redirectUrl = locationPath.split('/').slice(0, segmentCount + 1).join('/');
+      
+      // Make sure we keep any query params or hash
+      redirectUrl = redirectUrl + '/?/' + 
+          locationPath.slice(redirectUrl.length + 1) +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') + 
+          l.hash;
+          
+      window.location.replace(redirectUrl);
+    }
+  </script>
 </head>
 <body>
-  <p>Redirecting to the app...</p>
-  <script>
-    window.location.href = "/TestZentek/";
-  </script>
+  <h1>Redirecting...</h1>
+  <p>If you are not redirected automatically, please <a href="/TestZentek/">click here</a>.</p>
 </body>
 </html>

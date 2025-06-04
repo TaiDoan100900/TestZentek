@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/TestZentek/favicon.ico" />
+    <title>Test Zentek</title>
+    <meta name="description" content="Test Zentek Application" />
+    <link rel="stylesheet" href="/TestZentek/assets/root-CMFJXqD8.css">
+    <script>
+      // Handling GitHub Pages SPA routing issues
+      (function() {
+        // Script for GitHub Pages path handling
+        const pathSegmentsToKeep = 1; // Keeps /TestZentek/ in the URL
+        
+        const l = window.location;
+        if (l.search[1] === '/' ) {
+          const decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      }());
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/TestZentek/assets/entry.client-GYH6YEgi.js"></script>
+  </body>
+</html>
